@@ -14,18 +14,21 @@ module Data.Either where
   isRight :: forall a b. Either a b -> Boolean
   isRight = either (const false) (const true)
 
-  instance monadEither :: Monad (Either e) where
-    return = Right
-    (>>=) = either (\e _ -> Left e) (\a f -> f a)
-
-  instance applicativeEither :: Applicative (Either e) where
-    pure = Right
-    (<*>) (Left e) _ = Left e
-    (<*>) (Right f) r = f <$> r
-
   instance functorEither :: Functor (Either a) where
     (<$>) _ (Left x) = Left x
     (<$>) f (Right y) = Right (f y)
+
+  instance applyEither :: Apply (Either e) where
+    (<*>) (Left e) _ = Left e
+    (<*>) (Right f) r = f <$> r
+
+  instance applicativeEither :: Applicative (Either e) where
+    pure = Right
+
+  instance bindEither :: Bind (Either e) where
+    (>>=) = either (\e _ -> Left e) (\a f -> f a)
+
+  instance monadEither :: Monad (Either e)
 
   instance showEither :: (Show a, Show b) => Show (Either a b) where
     show (Left x) = "Left " ++ (show x)
