@@ -14,5 +14,8 @@
     "examples",
     "externs",
     "js"
-  ]
+  ],
+  "devDependencies": {
+    "purescript-quickcheck": "*"
+  }
 }
