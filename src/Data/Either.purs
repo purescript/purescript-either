@@ -1,7 +1,5 @@
 module Data.Either where
 
-import Prelude
-
 data Either a b = Left a | Right b
 
 either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
