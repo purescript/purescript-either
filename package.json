@@ -1,10 +1,9 @@
 {
   "name": "purescript-either",
-  "version": "0.0.0",
+  "private": true,
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-purescript": "~0.5.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-execute": "~0.1.5"
+    "grunt-contrib-clean": "~0.5.0"
   }
 }
