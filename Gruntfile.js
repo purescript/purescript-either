@@ -9,19 +9,16 @@ module.exports = function(grunt) {
       "bower_components/purescript-*/src/**/*.purs",
     ],
     
-    clean: {
-      dedupe: ["bower_components/purescript-either"],
-      lib: ["js", "externs"]
-    },
+    clean: ["output"],
   
     pscMake: ["<%=libFiles%>"],
     dotPsci: ["<%=libFiles%>"]
-    
+
   });
 
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-purescript");
   
-  grunt.registerTask("make", ["clean:dedupe", "pscMake", "dotPsci"]);
+  grunt.registerTask("make", ["pscMake", "dotPsci"]);
   grunt.registerTask("default", ["make"]);
 };
