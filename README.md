@@ -1,10 +1,13 @@
-# Data.Either
+# Module Documentation
+
+## Module Data.Either
 
 ### Types
 
     data Either a b where
       Left :: a -> Either a b
       Right :: b -> Either a b
+
 
 ### Type Class Instances
 
@@ -23,6 +26,7 @@
     instance ordEither :: (Ord a, Ord b) => Ord (Either a b)
 
     instance showEither :: (Show a, Show b) => Show (Either a b)
+
 
 ### Values
 
