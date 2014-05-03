@@ -29,8 +29,8 @@ instance bindEither :: Bind (Either e) where
 instance monadEither :: Monad (Either e)
 
 instance showEither :: (Show a, Show b) => Show (Either a b) where
-  show (Left x) = "Left " ++ (show x)
-  show (Right y) = "Right " ++ (show y)
+  show (Left x) = "Left (" ++ show x ++ ")"
+  show (Right y) = "Right (" ++ show y ++ ")"
 
 instance eqEither :: (Eq a, Eq b) => Eq (Either a b) where
   (==) (Left a1)  (Left a2)  = a1 == a2
