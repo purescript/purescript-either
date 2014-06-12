@@ -32,6 +32,6 @@
 
     either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
 
-    isLeft :: forall a b. Either a b -> Prim.Boolean
+    isLeft :: forall a b. Either a b -> Boolean
 
-    isRight :: forall a b. Either a b -> Prim.Boolean
+    isRight :: forall a b. Either a b -> Boolean
