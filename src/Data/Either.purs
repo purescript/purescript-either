@@ -1,5 +1,7 @@
 module Data.Either where
 
+import Control.Alt
+
 data Either a b = Left a | Right b
 
 either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
@@ -22,6 +24,10 @@ instance applyEither :: Apply (Either e) where
 
 instance applicativeEither :: Applicative (Either e) where
   pure = Right
+
+instance altEither :: Alt (Either e) where
+  (<|>) (Left _) r = r
+  (<|>) l        _ = l
 
 instance bindEither :: Bind (Either e) where
   (>>=) = either (\e _ -> Left e) (\a f -> f a)

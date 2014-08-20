@@ -11,6 +11,8 @@
 
 ### Type Class Instances
 
+    instance altEither :: Alt (Either e)
+
     instance applicativeEither :: Applicative (Either e)
 
     instance applyEither :: Apply (Either e)
