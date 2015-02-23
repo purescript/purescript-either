@@ -56,7 +56,7 @@ instance functorEither :: Functor (Either a) where
 -- |
 -- | ``` purescript
 -- | Left f <*> Right x == Left x
--- | Right f <*> Left t == Left t
+-- | Right f <*> Left y == Left y
 -- | ```
 -- |
 -- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` can be used transform a
