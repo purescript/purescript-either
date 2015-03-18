@@ -294,3 +294,25 @@ choice9 :: forall a b c d e f g h i z. (a -> z) -> (b -> z) -> (c -> z) -> (d ->
 ``` purescript
 choice10 :: forall a b c d e f g h i j z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> (j -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g (Either h (Either i j)))))))) -> z
 ```
+
+
+
+## Module Data.Either.Unsafe
+
+#### `fromLeft`
+
+``` purescript
+fromLeft :: forall a b. Either a b -> a
+```
+
+A partial function that extracts the value from the `Left` data constructor.
+Passing a `Right` to `fromLeft` will throw an error at runtime.
+
+#### `fromRight`
+
+``` purescript
+fromRight :: forall a b. Either a b -> b
+```
+
+A partial function that extracts the value from the `Right` data constructor.
+Passing a `Left` to `fromRight` will throw an error at runtime.
