@@ -30,6 +30,22 @@ either f g (Left x) == f x
 either f g (Right y) == g y
 ```
 
+#### `left`
+
+``` purescript
+left :: forall a b. Either a b -> Maybe a
+```
+
+Returns `Just a` if the value is `Left a` and `Nothing` otherwise.
+
+#### `right`
+
+``` purescript
+right :: forall a b. Either a b -> Maybe b
+```
+
+Returns `Just b` if the value is `Right b` and `Nothing` otherwise.
+
 #### `isLeft`
 
 ``` purescript
