@@ -236,63 +236,63 @@ Any `Left` value is considered to be less than a `Right` value.
 #### `Either2`
 
 ``` purescript
-type Either2 a b = Either a b
+type Either2 a z = Either a z
 ```
 
 
 #### `Either3`
 
 ``` purescript
-type Either3 a b c = Either a (Either2 b c)
+type Either3 a b z = Either (Either2 a b) z
 ```
 
 
 #### `Either4`
 
 ``` purescript
-type Either4 a b c d = Either a (Either3 b c d)
+type Either4 a b c z = Either (Either3 a b c) z
 ```
 
 
 #### `Either5`
 
 ``` purescript
-type Either5 a b c d e = Either a (Either4 b c d e)
+type Either5 a b c d z = Either (Either4 a b c d) z
 ```
 
 
 #### `Either6`
 
 ``` purescript
-type Either6 a b c d e f = Either a (Either5 b c d e f)
+type Either6 a b c d e z = Either (Either5 a b c d e) z
 ```
 
 
 #### `Either7`
 
 ``` purescript
-type Either7 a b c d e f g = Either a (Either6 b c d e f g)
+type Either7 a b c d e f z = Either (Either6 a b c d e f) z
 ```
 
 
 #### `Either8`
 
 ``` purescript
-type Either8 a b c d e f g h = Either a (Either7 b c d e f g h)
+type Either8 a b c d e f g z = Either (Either7 a b c d e f g) z
 ```
 
 
 #### `Either9`
 
 ``` purescript
-type Either9 a b c d e f g h i = Either a (Either8 b c d e f g h i)
+type Either9 a b c d e f g h z = Either (Either8 a b c d e f g h) z
 ```
 
 
 #### `Either10`
 
 ``` purescript
-type Either10 a b c d e f g h i j = Either a (Either9 b c d e f g h i j)
+type Either10 a b c d e f g h i z = Either (Either9 a b c d e f g h i) z
 ```
 
 
