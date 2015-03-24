@@ -1,29 +1,39 @@
 module Data.Either.Nested where
   import Data.Either
 
-  choice2 :: forall a b z. (a -> z) -> (b -> z) -> Either a b -> z
-  choice2 = either
+  type Either2 a b = Either a b
+  type Either3 a b c = Either a (Either2 b c)
+  type Either4 a b c d = Either a (Either3 b c d)
+  type Either5 a b c d e = Either a (Either4 b c d e)
+  type Either6 a b c d e f = Either a (Either5 b c d e f)
+  type Either7 a b c d e f g = Either a (Either6 b c d e f g)
+  type Either8 a b c d e f g h = Either a (Either7 b c d e f g h)
+  type Either9 a b c d e f g h i = Either a (Either8 b c d e f g h i)
+  type Either10 a b c d e f g h i j = Either a (Either9 b c d e f g h i j)
 
-  choice3 :: forall a b c z. (a -> z) -> (b -> z) -> (c -> z) -> Either a (Either b c) -> z
-  choice3 a b c = either a (choice2 b c)
+  either2 :: forall a b z. (a -> z) -> (b -> z) -> Either2 a b -> z
+  either2 = either
 
-  choice4 :: forall a b c d z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> Either a (Either b (Either c d)) -> z
-  choice4 a b c d = either a (choice3 b c d)
+  either3 :: forall a b c z. (a -> z) -> (b -> z) -> (c -> z) -> Either3 a b c -> z
+  either3 a b c = either a (either2 b c)
 
-  choice5 :: forall a b c d e z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> Either a (Either b (Either c (Either d e))) -> z
-  choice5 a b c d e = either a (choice4 b c d e)
+  either4 :: forall a b c d z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> Either4 a b c d -> z
+  either4 a b c d = either a (either3 b c d)
 
-  choice6 :: forall a b c d e f z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> Either a (Either b (Either c (Either d (Either e f)))) -> z
-  choice6 a b c d e f = either a (choice5 b c d e f)
+  either5 :: forall a b c d e z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> Either5 a b c d e -> z
+  either5 a b c d e = either a (either4 b c d e)
 
-  choice7 :: forall a b c d e f g z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> Either a (Either b (Either c (Either d (Either e (Either f g))))) -> z
-  choice7 a b c d e f g = either a (choice6 b c d e f g)
+  either6 :: forall a b c d e f z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> Either6 a b c d e f -> z
+  either6 a b c d e f = either a (either5 b c d e f)
 
-  choice8 :: forall a b c d e f g h z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g h)))))) -> z
-  choice8 a b c d e f g h = either a (choice7 b c d e f g h)
+  either7 :: forall a b c d e f g z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> Either7 a b c d e f g -> z
+  either7 a b c d e f g = either a (either6 b c d e f g)
 
-  choice9 :: forall a b c d e f g h i z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g (Either h i))))))) -> z
-  choice9 a b c d e f g h i = either a (choice8 b c d e f g h i)
+  either8 :: forall a b c d e f g h z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> Either8 a b c d e f g h -> z
+  either8 a b c d e f g h = either a (either7 b c d e f g h)
 
-  choice10 :: forall a b c d e f g h i j z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> (j -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g (Either h (Either i j)))))))) -> z
-  choice10 a b c d e f g h i j = either a (choice9 b c d e f g h i j)
+  either9 :: forall a b c d e f g h i z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> Either9 a b c d e f g h i -> z
+  either9 a b c d e f g h i = either a (either8 b c d e f g h i)
+
+  either10 :: forall a b c d e f g h i j z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> (j -> z) -> Either10 a b c d e f g h i j -> z
+  either10 a b c d e f g h i j = either a (either9 b c d e f g h i j)
