@@ -233,66 +233,129 @@ Any `Left` value is considered to be less than a `Right` value.
 
 ## Module Data.Either.Nested
 
-#### `choice2`
+#### `Either2`
 
 ``` purescript
-choice2 :: forall a b z. (a -> z) -> (b -> z) -> Either a b -> z
+type Either2 a z = Either a z
 ```
 
 
-#### `choice3`
+#### `Either3`
 
 ``` purescript
-choice3 :: forall a b c z. (a -> z) -> (b -> z) -> (c -> z) -> Either a (Either b c) -> z
+type Either3 a b z = Either (Either2 a b) z
 ```
 
 
-#### `choice4`
+#### `Either4`
 
 ``` purescript
-choice4 :: forall a b c d z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> Either a (Either b (Either c d)) -> z
+type Either4 a b c z = Either (Either3 a b c) z
 ```
 
 
-#### `choice5`
+#### `Either5`
 
 ``` purescript
-choice5 :: forall a b c d e z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> Either a (Either b (Either c (Either d e))) -> z
+type Either5 a b c d z = Either (Either4 a b c d) z
 ```
 
 
-#### `choice6`
+#### `Either6`
 
 ``` purescript
-choice6 :: forall a b c d e f z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> Either a (Either b (Either c (Either d (Either e f)))) -> z
+type Either6 a b c d e z = Either (Either5 a b c d e) z
 ```
 
 
-#### `choice7`
+#### `Either7`
 
 ``` purescript
-choice7 :: forall a b c d e f g z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> Either a (Either b (Either c (Either d (Either e (Either f g))))) -> z
+type Either7 a b c d e f z = Either (Either6 a b c d e f) z
 ```
 
 
-#### `choice8`
+#### `Either8`
 
 ``` purescript
-choice8 :: forall a b c d e f g h z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g h)))))) -> z
+type Either8 a b c d e f g z = Either (Either7 a b c d e f g) z
 ```
 
 
-#### `choice9`
+#### `Either9`
 
 ``` purescript
-choice9 :: forall a b c d e f g h i z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g (Either h i))))))) -> z
+type Either9 a b c d e f g h z = Either (Either8 a b c d e f g h) z
 ```
 
 
-#### `choice10`
+#### `Either10`
 
 ``` purescript
-choice10 :: forall a b c d e f g h i j z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> (j -> z) -> Either a (Either b (Either c (Either d (Either e (Either f (Either g (Either h (Either i j)))))))) -> z
+type Either10 a b c d e f g h i z = Either (Either9 a b c d e f g h i) z
+```
+
+
+#### `either2`
+
+``` purescript
+either2 :: forall a b z. (a -> z) -> (b -> z) -> Either2 a b -> z
+```
+
+
+#### `either3`
+
+``` purescript
+either3 :: forall a b c z. (a -> z) -> (b -> z) -> (c -> z) -> Either3 a b c -> z
+```
+
+
+#### `either4`
+
+``` purescript
+either4 :: forall a b c d z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> Either4 a b c d -> z
+```
+
+
+#### `either5`
+
+``` purescript
+either5 :: forall a b c d e z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> Either5 a b c d e -> z
+```
+
+
+#### `either6`
+
+``` purescript
+either6 :: forall a b c d e f z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> Either6 a b c d e f -> z
+```
+
+
+#### `either7`
+
+``` purescript
+either7 :: forall a b c d e f g z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> Either7 a b c d e f g -> z
+```
+
+
+#### `either8`
+
+``` purescript
+either8 :: forall a b c d e f g h z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> Either8 a b c d e f g h -> z
+```
+
+
+#### `either9`
+
+``` purescript
+either9 :: forall a b c d e f g h i z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> Either9 a b c d e f g h i -> z
+```
+
+
+#### `either10`
+
+``` purescript
+either10 :: forall a b c d e f g h i j z. (a -> z) -> (b -> z) -> (c -> z) -> (d -> z) -> (e -> z) -> (f -> z) -> (g -> z) -> (h -> z) -> (i -> z) -> (j -> z) -> Either10 a b c d e f g h i j -> z
 ```
 
 
