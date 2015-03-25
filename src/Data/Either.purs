@@ -2,6 +2,7 @@ module Data.Either where
 
 import Control.Alt
 import Control.Extend
+import Data.Maybe
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
@@ -20,6 +21,16 @@ data Either a b = Left a | Right b
 either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
 either f _ (Left a) = f a
 either _ g (Right b) = g b
+
+-- | Returns `Just a` if the value is `Left a` and `Nothing` otherwise.
+left :: forall a b. Either a b -> Maybe a
+left (Left a) = Just a
+left (Right _) = Nothing
+
+-- | Returns `Just b` if the value is `Right b` and `Nothing` otherwise.
+right :: forall a b. Either a b -> Maybe b
+right (Left _) = Nothing
+right (Right b) = Just b
 
 -- | Returns `true` when the `Either` value was constructed with `Left`.
 isLeft :: forall a b. Either a b -> Boolean
