@@ -182,3 +182,7 @@ instance ordEither :: (Ord a, Ord b) => Ord (Either a b) where
   compare (Right b1) (Right b2) = compare b1 b2
   compare (Left a)   _          = LT
   compare _          (Left b)   = GT
+
+instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
+  top = Right top
+  bottom = Left bottom

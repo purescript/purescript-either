@@ -230,8 +230,35 @@ both types the `Either` can contain.
 
 Any `Left` value is considered to be less than a `Right` value.
 
+#### `boundedEither`
+
+``` purescript
+instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b)
+```
+
+
 
 ## Module Data.Either.Nested
+
+
+Utilities for n-eithers: sums types with more than two terms built from nested eithers.
+
+Nested eithers arise naturally in sum combinators. You shouldn't 
+represent sum data using nested eithers, but if combinators you're working with
+create them, utilities in this module will allow to to more easily work
+with them, including translating to and from more traditional sum types.
+
+```purescript
+data Color = Red Number | Green Number | Blue Number
+
+toEither3 :: Color -> Either3 Number Number Number
+toEither3 = either3 Red Green Blue
+
+fromEither3 :: Either3 Number Number Number -> Color
+fromEither3 (Red   v) = either1of3
+fromEither3 (Green v) = either2of3
+fromEither3 (Blue  v) = either3of3
+```
 
 #### `Either2`
 
