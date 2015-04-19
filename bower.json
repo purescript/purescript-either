@@ -16,6 +16,7 @@
     "package.json"
   ],
   "dependencies": {
+    "purescript-bifunctors": "~0.4.0",
     "purescript-control": "~0.3.0"
   }
 }

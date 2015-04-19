@@ -65,6 +65,13 @@ f <$> Right x == Right (f x)
 f <$> Left y == Left y
 ```
 
+#### `bifunctorEither`
+
+``` purescript
+instance bifunctorEither :: Bifunctor Either
+```
+
+
 #### `applyEither`
 
 ``` purescript

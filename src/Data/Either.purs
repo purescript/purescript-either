@@ -1,7 +1,8 @@
 module Data.Either where
 
-import Control.Alt
-import Control.Extend
+import Control.Alt (Alt)
+import Control.Extend (Extend)
+import Data.Bifunctor (Bifunctor)
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
@@ -44,6 +45,10 @@ isRight = either (const false) (const true)
 instance functorEither :: Functor (Either a) where
   (<$>) _ (Left x) = Left x
   (<$>) f (Right y) = Right (f y)
+
+instance bifunctorEither :: Bifunctor Either where
+  bimap f _ (Left l) = Left (f l)
+  bimap _ g (Right r) = Right (g r)
 
 -- | The `Apply` instance allows functions contained within a `Right` to
 -- | transform a value contained within a `Right` using the `(<*>)` operator:
