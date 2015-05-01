@@ -43,8 +43,8 @@ isRight = either (const false) (const true)
 -- | f <$> Left y == Left y
 -- | ```
 instance functorEither :: Functor (Either a) where
-  (<$>) _ (Left x) = Left x
-  (<$>) f (Right y) = Right (f y)
+  map _ (Left x) = Left x
+  map f (Right y) = Right (f y)
 
 instance bifunctorEither :: Bifunctor Either where
   bimap f _ (Left l) = Left (f l)
@@ -83,8 +83,8 @@ instance bifunctorEither :: Bifunctor Either where
 -- | f <$> Left x <*> Left y == Left x
 -- | ```
 instance applyEither :: Apply (Either e) where
-  (<*>) (Left e) _ = Left e
-  (<*>) (Right f) r = f <$> r
+  apply (Left e) _ = Left e
+  apply (Right f) r = f <$> r
 
 -- | The `Applicative` instance enables lifting of values into `Either` with the
 -- | `pure` or `return` function (`return` is an alias for `pure`):
@@ -119,8 +119,8 @@ instance applicativeEither :: Applicative (Either e) where
 -- | Left x <|> Left y == Left y
 -- | ```
 instance altEither :: Alt (Either e) where
-  (<|>) (Left _) r = r
-  (<|>) l        _ = l
+  alt (Left _) r = r
+  alt l        _ = l
 
 -- | The `Bind` instance allows sequencing of `Either` values and functions that
 -- | return an `Either` by using the `>>=` operator:
@@ -130,7 +130,7 @@ instance altEither :: Alt (Either e) where
 -- | Right x >>= f = f x
 -- | ```
 instance bindEither :: Bind (Either e) where
-  (>>=) = either (\e _ -> Left e) (\a f -> f a)
+  bind = either (\e _ -> Left e) (\a f -> f a)
 
 -- | The `Monad` instance guarantees that there are both `Applicative` and
 -- | `Bind` instances for `Either`. This also enables the `do` syntactic sugar:
@@ -158,8 +158,8 @@ instance monadEither :: Monad (Either e)
 -- | f <<= Right x = Right (f x)
 -- | ```
 instance extendEither :: Extend (Either e) where
-  (<<=) _ (Left y)  = Left y
-  (<<=) f x         = Right (f x)
+  extend _ (Left y)  = Left y
+  extend f x         = Right (f x)
 
 -- | The `Show` instance allows `Either` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for both type the `Either` can
@@ -172,10 +172,9 @@ instance showEither :: (Show a, Show b) => Show (Either a b) where
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for both
 -- | types the `Either` can contain.
 instance eqEither :: (Eq a, Eq b) => Eq (Either a b) where
-  (==) (Left a1)  (Left a2)  = a1 == a2
-  (==) (Right b1) (Right b2) = b1 == b2
-  (==) _          _          = false
-  (/=) a          b          = not (a == b)
+  eq (Left a1)  (Left a2)  = a1 == a2
+  eq (Right b1) (Right b2) = b1 == b2
+  eq _          _          = false
 
 -- | The `Ord` instance allows `Either` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
