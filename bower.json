@@ -6,17 +6,21 @@
     "purescript"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-either.git"
+  },
   "ignore": [
     "**/.*",
     "bower_components",
     "node_modules",
     "output",
+    "test",
     "bower.json",
     "gulpfile.js",
     "package.json"
   ],
   "dependencies": {
-    "purescript-bifunctors": "~0.4.0",
-    "purescript-control": "~0.3.0"
+    "purescript-foldable-traversable": "~0.4.0"
   }
 }

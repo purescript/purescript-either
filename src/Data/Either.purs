@@ -2,7 +2,12 @@ module Data.Either where
 
 import Control.Alt (Alt)
 import Control.Extend (Extend)
+import Data.Bifoldable (Bifoldable)
 import Data.Bifunctor (Bifunctor)
+import Data.Bitraversable (Bitraversable)
+import Data.Foldable (Foldable)
+import Data.Monoid (mempty)
+import Data.Traversable (Traversable)
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
@@ -190,3 +195,31 @@ instance ordEither :: (Ord a, Ord b) => Ord (Either a b) where
 instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
   top = Right top
   bottom = Left bottom
+
+instance foldableEither :: Foldable (Either a) where
+  foldr _ z (Left _)  = z
+  foldr f z (Right x) = f x z
+  foldl _ z (Left _)  = z
+  foldl f z (Right x) = f z x
+  foldMap f (Left _)  = mempty
+  foldMap f (Right x) = f x
+
+instance bifoldableEither :: Bifoldable Either where
+  bifoldr f _ z (Left a) = f a z
+  bifoldr _ g z (Right b) = g b z
+  bifoldl f _ z (Left a) = f z a
+  bifoldl _ g z (Right b) = g z b
+  bifoldMap f _ (Left a) = f a
+  bifoldMap _ g (Right b) = g b
+
+instance traversableEither :: Traversable (Either a) where
+  traverse _ (Left x)  = pure (Left x)
+  traverse f (Right x) = Right <$> f x
+  sequence (Left x) = pure (Left x)
+  sequence (Right x)  = Right <$> x
+
+instance bitraversableEither :: Bitraversable Either where
+  bitraverse f _ (Left a) = Left <$> f a
+  bitraverse _ g (Right b) = Right <$> g b
+  bisequence (Left a) = Left <$> a
+  bisequence (Right b) = Right <$> b
