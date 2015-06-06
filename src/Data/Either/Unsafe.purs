@@ -1,5 +1,7 @@
 module Data.Either.Unsafe where
 
+import Prelude
+
 import Data.Either
 
 -- | A partial function that extracts the value from the `Left` data constructor.

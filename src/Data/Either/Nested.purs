@@ -18,6 +18,8 @@
 -- | ```
 module Data.Either.Nested where
 
+import Prelude
+
 import Data.Either
 
 type Either2 a z = Either a z

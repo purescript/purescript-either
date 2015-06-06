@@ -1,5 +1,7 @@
 module Data.Either where
 
+import Prelude
+
 import Control.Alt (Alt)
 import Control.Extend (Extend)
 import Data.Bifoldable (Bifoldable)
