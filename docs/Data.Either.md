@@ -8,6 +8,11 @@ data Either a b
   | Right b
 ```
 
+The `Either` type is used to represent a choice between two types of value.
+
+A common use case for `Either` is error handling, where `Left` is used to
+carry an error value and `Right` is used to carry a success value.
+
 ##### Instances
 ``` purescript
 instance functorEither :: Functor (Either a)
@@ -27,11 +32,6 @@ instance bifoldableEither :: Bifoldable Either
 instance traversableEither :: Traversable (Either a)
 instance bitraversableEither :: Bitraversable Either
 ```
-
-The `Either` type is used to represent a choice between two types of value.
-
-A common use case for `Either` is error handling, where `Left` is used to
-carry an error value and `Right` is used to carry a success value.
 
 #### `either`
 
