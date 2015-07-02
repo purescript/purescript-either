@@ -1,6 +1,8 @@
 # purescript-either
 
+[![Latest release](http://img.shields.io/bower/v/purescript-either.svg)](https://github.com/purescript/purescript-either/releases)
 [![Build Status](https://travis-ci.org/purescript/purescript-either.svg?branch=master)](https://travis-ci.org/purescript/purescript-either)
+[![Dependency Status](https://www.versioneye.com/user/projects/55848c2436386100150003dc/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55848c2436386100150003dc)
 
 The `Either` type provides is used to represent values that can be one of two possibilities. For example, `Either Int Number` can be used in a place where either integers or floating point numbers are acceptable.
 
@@ -14,6 +16,6 @@ bower install purescript-either
 
 ## Module documentation
 
-- [Data.Either](docs/Data.Either.md)
-- [Data.Either.Nested](docs/Data.Either.Nested.md)
-- [Data.Either.Unsafe](docs/Data.Either.Unsafe.md)
+- [Data.Either](docs/Data/Either.md)
+- [Data.Either.Nested](docs/Data/Either/Nested.md)
+- [Data.Either.Unsafe](docs/Data/Either/Unsafe.md)
