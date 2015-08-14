@@ -225,3 +225,12 @@ instance bitraversableEither :: Bitraversable Either where
   bitraverse _ g (Right b) = Right <$> g b
   bisequence (Left a) = Left <$> a
   bisequence (Right b) = Right <$> b
+
+instance semiringEither :: (Semiring b) => Semiring (Either a b) where
+  one = Right one
+  mul x y = mul <$> x <*> y
+  zero = Right zero
+  add x y = add <$> x <*> y
+
+instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
+  append x y = append <$> x <*> y
