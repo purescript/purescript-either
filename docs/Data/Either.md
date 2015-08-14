@@ -31,6 +31,8 @@ instance foldableEither :: Foldable (Either a)
 instance bifoldableEither :: Bifoldable Either
 instance traversableEither :: Traversable (Either a)
 instance bitraversableEither :: Bitraversable Either
+instance semiringEither :: (Semiring b) => Semiring (Either a b)
+instance semigroupEither :: (Semigroup b) => Semigroup (Either a b)
 ```
 
 #### `either`
