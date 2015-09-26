@@ -17,6 +17,6 @@ fromLeft _ = unsafeThrow "Data.Either.Unsafe.fromLeft called on Right value"
 -- | Passing a `Left` to `fromRight` will throw an error at runtime.
 fromRight :: forall a b. Either a b -> b
 fromRight (Right a) = a
-fromRight _ = unsafeThrow "Data.Either.Unsafe.fromLeft called on Left value"
+fromRight _ = unsafeThrow "Data.Either.Unsafe.fromRight called on Left value"
 
 foreign import unsafeThrow :: forall a. String -> a
