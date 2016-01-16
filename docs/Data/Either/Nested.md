@@ -10,13 +10,13 @@ with them, including translating to and from more traditional sum types.
 ```purescript
 data Color = Red Number | Green Number | Blue Number
 
-toEither3 :: Color -> Either3 Number Number Number
+toEither3 :: Either3 Number Number Number -> Color
 toEither3 = either3 Red Green Blue
 
-fromEither3 :: Either3 Number Number Number -> Color
-fromEither3 (Red   v) = either1of3
-fromEither3 (Green v) = either2of3
-fromEither3 (Blue  v) = either3of3
+fromEither3 :: Color -> Either3 Number Number Number
+fromEither3 (Red   v) = either1of3 v
+fromEither3 (Green v) = either2of3 v
+fromEither3 (Blue  v) = either3of3 v
 ```
 
 #### `Either2`
