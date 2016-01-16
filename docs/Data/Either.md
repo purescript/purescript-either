@@ -15,24 +15,24 @@ carry an error value and `Right` is used to carry a success value.
 
 ##### Instances
 ``` purescript
-instance functorEither :: Functor (Either a)
-instance bifunctorEither :: Bifunctor Either
-instance applyEither :: Apply (Either e)
-instance applicativeEither :: Applicative (Either e)
-instance altEither :: Alt (Either e)
-instance bindEither :: Bind (Either e)
-instance monadEither :: Monad (Either e)
-instance extendEither :: Extend (Either e)
-instance showEither :: (Show a, Show b) => Show (Either a b)
-instance eqEither :: (Eq a, Eq b) => Eq (Either a b)
-instance ordEither :: (Ord a, Ord b) => Ord (Either a b)
-instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b)
-instance foldableEither :: Foldable (Either a)
-instance bifoldableEither :: Bifoldable Either
-instance traversableEither :: Traversable (Either a)
-instance bitraversableEither :: Bitraversable Either
-instance semiringEither :: (Semiring b) => Semiring (Either a b)
-instance semigroupEither :: (Semigroup b) => Semigroup (Either a b)
+Functor (Either a)
+Bifunctor Either
+Apply (Either e)
+Applicative (Either e)
+Alt (Either e)
+Bind (Either e)
+Monad (Either e)
+Extend (Either e)
+(Show a, Show b) => Show (Either a b)
+(Eq a, Eq b) => Eq (Either a b)
+(Ord a, Ord b) => Ord (Either a b)
+(Bounded a, Bounded b) => Bounded (Either a b)
+Foldable (Either a)
+Bifoldable Either
+Traversable (Either a)
+Bitraversable Either
+(Semiring b) => Semiring (Either a b)
+(Semigroup b) => Semigroup (Either a b)
 ```
 
 #### `either`
