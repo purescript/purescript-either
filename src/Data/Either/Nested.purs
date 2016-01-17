@@ -18,9 +18,7 @@
 -- | ```
 module Data.Either.Nested where
 
-import Prelude
-
-import Data.Either
+import Data.Either (Either(..), either)
 
 type Either2 a z = Either a z
 type Either3 a b z = Either (Either2 a b) z

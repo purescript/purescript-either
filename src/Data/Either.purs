@@ -1,41 +1,34 @@
 module Data.Either where
 
-import Prelude
+import Control.Alt (class Alt)
+import Control.Applicative (class Applicative, pure)
+import Control.Apply (class Apply, (<*>))
+import Control.Bind (class Bind)
+import Control.Extend (class Extend)
+import Control.Monad (class Monad)
 
-import Control.Alt (Alt)
-import Control.Extend (Extend)
-import Data.Bifoldable (Bifoldable)
-import Data.Bifunctor (Bifunctor)
-import Data.Bitraversable (Bitraversable)
-import Data.Foldable (Foldable)
+import Data.Bifoldable (class Bifoldable)
+import Data.Bifunctor (class Bifunctor)
+import Data.Bitraversable (class Bitraversable)
+import Data.Bounded (class Bounded, top, bottom)
+import Data.Eq (class Eq, (==))
+import Data.Foldable (class Foldable)
+import Data.Function (const)
+import Data.Functor (class Functor, (<$>))
+import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (mempty)
-import Data.Traversable (Traversable)
+import Data.Ord (class Ord, compare)
+import Data.Ordering (Ordering(..))
+import Data.Semigroup (class Semigroup, append, (<>))
+import Data.Semiring (class Semiring, add, mul, one, zero)
+import Data.Show (class Show, show)
+import Data.Traversable (class Traversable)
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
 -- | A common use case for `Either` is error handling, where `Left` is used to
 -- | carry an error value and `Right` is used to carry a success value.
 data Either a b = Left a | Right b
-
--- | Takes two functions and an `Either` value, if the value is a `Left` the
--- | inner value is applied to the first function, if the value is a `Right`
--- | the inner value is applied to the second function.
--- |
--- | ``` purescript
--- | either f g (Left x) == f x
--- | either f g (Right y) == g y
--- | ```
-either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
-either f _ (Left a) = f a
-either _ g (Right b) = g b
-
--- | Returns `true` when the `Either` value was constructed with `Left`.
-isLeft :: forall a b. Either a b -> Boolean
-isLeft = either (const true) (const false)
-
--- | Returns `true` when the `Either` value was constructed with `Right`.
-isRight :: forall a b. Either a b -> Boolean
-isRight = either (const false) (const true)
 
 -- | The `Functor` instance allows functions to transform the contents of a
 -- | `Right` with the `<$>` operator:
@@ -52,6 +45,9 @@ isRight = either (const false) (const true)
 instance functorEither :: Functor (Either a) where
   map _ (Left x) = Left x
   map f (Right y) = Right (f y)
+
+instance invariantEither :: Invariant (Either a) where
+  imap = imapF
 
 instance bifunctorEither :: Bifunctor Either where
   bimap f _ (Left l) = Left (f l)
@@ -172,8 +168,8 @@ instance extendEither :: Extend (Either e) where
 -- | `show` whenever there is an `Show` instance for both type the `Either` can
 -- | contain.
 instance showEither :: (Show a, Show b) => Show (Either a b) where
-  show (Left x) = "Left (" ++ show x ++ ")"
-  show (Right y) = "Right (" ++ show y ++ ")"
+  show (Left x) = "(Left " <> show x <> ")"
+  show (Right y) = "(Right " <> show y <> ")"
 
 -- | The `Eq` instance allows `Either` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for both
@@ -234,3 +230,33 @@ instance semiringEither :: (Semiring b) => Semiring (Either a b) where
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
+
+-- | Takes two functions and an `Either` value, if the value is a `Left` the
+-- | inner value is applied to the first function, if the value is a `Right`
+-- | the inner value is applied to the second function.
+-- |
+-- | ``` purescript
+-- | either f g (Left x) == f x
+-- | either f g (Right y) == g y
+-- | ```
+either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
+either f _ (Left a) = f a
+either _ g (Right b) = g b
+
+-- | Returns `true` when the `Either` value was constructed with `Left`.
+isLeft :: forall a b. Either a b -> Boolean
+isLeft = either (const true) (const false)
+
+-- | Returns `true` when the `Either` value was constructed with `Right`.
+isRight :: forall a b. Either a b -> Boolean
+isRight = either (const false) (const true)
+
+-- | A partial function that extracts the value from the `Left` data constructor.
+-- | Passing a `Right` to `fromLeft` will throw an error at runtime.
+fromLeft :: forall a b. Partial => Either a b -> a
+fromLeft (Left a) = a
+
+-- | A partial function that extracts the value from the `Right` data constructor.
+-- | Passing a `Left` to `fromRight` will throw an error at runtime.
+fromRight :: forall a b. Partial => Either a b -> b
+fromRight (Right a) = a
