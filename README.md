@@ -14,8 +14,6 @@ A common use for this type is error handling, where by convention the `Left` con
 bower install purescript-either
 ```
 
-## Module documentation
+## Documentation
 
-- [Data.Either](docs/Data/Either.md)
-- [Data.Either.Nested](docs/Data/Either/Nested.md)
-- [Data.Either.Unsafe](docs/Data/Either/Unsafe.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-either).
