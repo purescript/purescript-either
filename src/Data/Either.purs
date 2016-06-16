@@ -67,7 +67,7 @@ instance bifunctorEither :: Bifunctor Either where
 -- | Right f <*> Left y == Left y
 -- | ```
 -- |
--- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` can be used transform a
+-- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` can be used to transform a
 -- | pure function to take `Either`-typed arguments so `f :: a -> b -> c`
 -- | becomes `f :: Either l a -> Either l b -> Either l c`:
 -- |
@@ -90,11 +90,10 @@ instance applyEither :: Apply (Either e) where
   apply (Right f) r = f <$> r
 
 -- | The `Applicative` instance enables lifting of values into `Either` with the
--- | `pure` or `return` function (`return` is an alias for `pure`):
+-- | `pure` function:
 -- |
 -- | ``` purescript
 -- | pure x :: Either _ _ == Right x
--- | return x :: Either _ _ == Right x
 -- | ```
 -- |
 -- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` and `Applicative`'s
