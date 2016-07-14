@@ -17,7 +17,6 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-foldable-traversable": "^1.0.0",
-    "purescript-partial": "^1.1.2"
+    "purescript-foldable-traversable": "^1.0.0"
   }
 }
