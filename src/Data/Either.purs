@@ -1,27 +1,16 @@
 module Data.Either where
 
+import Prelude
+
 import Control.Alt (class Alt)
-import Control.Applicative (class Applicative, pure)
-import Control.Apply (class Apply, (<*>))
-import Control.Bind (class Bind)
 import Control.Extend (class Extend)
-import Control.Monad (class Monad)
 
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
-import Data.Bounded (class Bounded, top, bottom)
-import Data.Eq (class Eq, (==))
 import Data.Foldable (class Foldable)
-import Data.Function (const)
-import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (mempty)
-import Data.Ord (class Ord, compare)
-import Data.Ordering (Ordering(..))
-import Data.Semigroup (class Semigroup, append, (<>))
-import Data.Semiring (class Semiring, add, mul, one, zero)
-import Data.Show (class Show, show)
 import Data.Traversable (class Traversable)
 
 -- | The `Either` type is used to represent a choice between two types of value.
@@ -173,21 +162,14 @@ instance showEither :: (Show a, Show b) => Show (Either a b) where
 -- | The `Eq` instance allows `Either` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for both
 -- | types the `Either` can contain.
-instance eqEither :: (Eq a, Eq b) => Eq (Either a b) where
-  eq (Left a1)  (Left a2)  = a1 == a2
-  eq (Right b1) (Right b2) = b1 == b2
-  eq _          _          = false
+derive instance eqEither :: (Eq a, Eq b) => Eq (Either a b)
 
 -- | The `Ord` instance allows `Either` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
 -- | both types the `Either` can contain.
 -- |
 -- | Any `Left` value is considered to be less than a `Right` value.
-instance ordEither :: (Ord a, Ord b) => Ord (Either a b) where
-  compare (Left a1)  (Left a2)  = compare a1 a2
-  compare (Right b1) (Right b2) = compare b1 b2
-  compare (Left a)   _          = LT
-  compare _          (Left b)   = GT
+derive instance ordEither :: (Ord a, Ord b) => Ord (Either a b)
 
 instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
   top = Right top
