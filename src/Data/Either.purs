@@ -146,7 +146,7 @@ instance monadEither :: Monad (Either e)
 -- |
 -- | ``` purescript
 -- | f <<= Left x = Left x
--- | f <<= Right x = Right (f x)
+-- | f <<= Right x = Right (f (Right x))
 -- | ```
 instance extendEither :: Extend (Either e) where
   extend _ (Left y)  = Left y
