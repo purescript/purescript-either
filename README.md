@@ -1,8 +1,7 @@
 # purescript-either
 
-[![Latest release](http://img.shields.io/bower/v/purescript-either.svg)](https://github.com/purescript/purescript-either/releases)
-[![Build Status](https://travis-ci.org/purescript/purescript-either.svg?branch=master)](https://travis-ci.org/purescript/purescript-either)
-[![Dependency Status](https://www.versioneye.com/user/projects/55848c2436386100150003dc/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55848c2436386100150003dc)
+[![Latest release](http://img.shields.io/github/release/purescript/purescript-either.svg)](https://github.com/purescript/purescript-either/releases)
+[![Build status](https://travis-ci.org/purescript/purescript-either.svg?branch=master)](https://travis-ci.org/purescript/purescript-either)
 
 The `Either` type provides is used to represent values that can be one of two possibilities. For example, `Either Int Number` can be used in a place where either integers or floating point numbers are acceptable.
 
