@@ -225,8 +225,8 @@ either f _ (Left a) = f a
 either _ g (Right b) = g b
 
 -- | Combine two alternatives.
-eitherP :: forall m a b. Alt m => m a -> m b -> m (Either a b)
-eitherP a b = Left <$> a <|> Right <$> b
+choose :: forall m a b. Alt m => m a -> m b -> m (Either a b)
+choose a b = Left <$> a <|> Right <$> b
 
 -- | Returns `true` when the `Either` value was constructed with `Left`.
 isLeft :: forall a b. Either a b -> Boolean
