@@ -8,9 +8,11 @@ import Control.Extend (class Extend)
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
+import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (mempty)
+import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
 
 -- | The `Either` type is used to represent a choice between two types of value.
@@ -164,12 +166,16 @@ instance showEither :: (Show a, Show b) => Show (Either a b) where
 -- | types the `Either` can contain.
 derive instance eqEither :: (Eq a, Eq b) => Eq (Either a b)
 
+instance eq1Either :: Eq a => Eq1 (Either a) where eq1 = eq
+
 -- | The `Ord` instance allows `Either` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
 -- | both types the `Either` can contain.
 -- |
 -- | Any `Left` value is considered to be less than a `Right` value.
 derive instance ordEither :: (Ord a, Ord b) => Ord (Either a b)
+
+instance ord1Either :: Ord a => Ord1 (Either a) where compare1 = compare
 
 instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
   top = Right top
