@@ -8,13 +8,13 @@
 -- | ```purescript
 -- | data Color = Red Number | Green Number | Blue Number
 -- |
--- | toEither3 :: Either3 Number Number Number -> Color
--- | toEither3 = either3 Red Green Blue
+-- | fromEither3 :: Either3 Number Number Number -> Color
+-- | fromEither3 = either3 Red Green Blue
 -- |
--- | fromEither3 :: Color -> Either3 Number Number Number
--- | fromEither3 (Red   v) = in1 v
--- | fromEither3 (Green v) = in2 v
--- | fromEither3 (Blue  v) = in3 v
+-- | toEither3 :: Color -> Either3 Number Number Number
+-- | toEither3 (Red   v) = in1 v
+-- | toEither3 (Green v) = in2 v
+-- | toEither3 (Blue  v) = in3 v
 -- | ```
 module Data.Either.Nested
   ( in1, in2, in3, in4, in5, in6, in7, in8, in9, in10
