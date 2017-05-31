@@ -218,6 +218,9 @@ instance semiringEither :: (Semiring b) => Semiring (Either a b) where
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
 
+instance discardEither :: (Discard a, Discard b) => Discard (Either a b) where
+  discard = bind
+
 -- | Takes two functions and an `Either` value, if the value is a `Left` the
 -- | inner value is applied to the first function, if the value is a `Right`
 -- | the inner value is applied to the second function.
