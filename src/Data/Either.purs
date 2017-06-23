@@ -4,13 +4,13 @@ import Prelude
 
 import Control.Alt (class Alt, (<|>))
 import Control.Extend (class Extend)
-
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Maybe (Maybe(..), maybe)
 import Data.Monoid (mempty)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
@@ -251,3 +251,23 @@ fromLeft (Left a) = a
 -- | Passing a `Left` to `fromRight` will throw an error at runtime.
 fromRight :: forall a b. Partial => Either a b -> b
 fromRight (Right a) = a
+
+-- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
+-- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
+-- |
+-- | ```purescript
+-- | note "default" Nothing = Left "default"
+-- | note "default" (Just 1) = Right 1
+-- | ```
+note :: forall a b. a -> Maybe b -> Either a b
+note a = maybe (Left a) Right
+
+-- | Turns an `Either` into a `Maybe`, by throwing eventual `Left` values away and converting
+-- | them into `Nothing`. `Right` values get turned into `Just`s.
+-- |
+-- | ```purescript
+-- | hush (Left "ParseError") = Nothing
+-- | hush (Right 42) = Just 42
+-- | ```
+hush :: forall a b. Either a b -> Maybe b
+hush = either (const Nothing) Just
