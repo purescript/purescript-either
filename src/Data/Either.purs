@@ -209,11 +209,24 @@ instance bitraversableEither :: Bitraversable Either where
   bisequence (Left a) = Left <$> a
   bisequence (Right b) = Right <$> b
 
-instance semiringEither :: (Semiring b) => Semiring (Either a b) where
+instance semiringEither :: (Semiring a, Semiring b) => Semiring (Either a b) where
   one = Right one
-  mul x y = mul <$> x <*> y
+  mul = semiringHelper mul
   zero = Right zero
-  add x y = add <$> x <*> y
+  add = semiringHelper add
+
+semiringHelper
+  :: forall a b
+   . Semiring a
+  => Semiring b
+  => (forall a'. Semiring a' => a' -> a' -> a')
+  -> Either a b -> Either a b -> Either a b
+semiringHelper op x y =
+  case x, y of
+      Left x', Left y' -> Left $ x' `op` y'
+      Right x', Right y' -> Right $ x' `op` y'
+      Left x', _ -> Left x'
+      _, Left y' -> Left y'
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
