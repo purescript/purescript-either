@@ -10,7 +10,7 @@ import Data.Bitraversable (class Bitraversable)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable)
 import Data.Functor.Invariant (class Invariant, imapF)
-import Data.Maybe (Maybe(..), maybe)
+import Data.Maybe (Maybe(..), maybe, maybe')
 import Data.Monoid (mempty)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
@@ -261,6 +261,16 @@ fromRight (Right a) = a
 -- | ```
 note :: forall a b. a -> Maybe b -> Either a b
 note a = maybe (Left a) Right
+
+-- | Similar to `note`, but for use in cases where the default value may be
+-- | expensive to compute.
+-- |
+-- | ```purescript
+-- | note' (\_ -> "default") Nothing = Left "default"
+-- | note' (\_ -> "default") (Just 1) = Right 1
+-- | ```
+note' :: forall a b. (Unit -> a) -> Maybe b -> Either a b
+note' f = maybe' (Left <<< f) Right
 
 -- | Turns an `Either` into a `Maybe`, by throwing eventual `Left` values away and converting
 -- | them into `Nothing`. `Right` values get turned into `Just`s.
