@@ -11,7 +11,6 @@ import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe (Maybe(..), maybe, maybe')
-import Data.Monoid (mempty)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
 
@@ -33,9 +32,7 @@ data Either a b = Left a | Right b
 -- | ``` purescript
 -- | f <$> Left y == Left y
 -- | ```
-instance functorEither :: Functor (Either a) where
-  map _ (Left x) = Left x
-  map f (Right y) = Right (f y)
+derive instance functorEither :: Functor (Either a)
 
 instance invariantEither :: Invariant (Either a) where
   imap = imapF
@@ -166,7 +163,7 @@ instance showEither :: (Show a, Show b) => Show (Either a b) where
 -- | types the `Either` can contain.
 derive instance eqEither :: (Eq a, Eq b) => Eq (Either a b)
 
-instance eq1Either :: Eq a => Eq1 (Either a) where eq1 = eq
+derive instance eq1Either :: Eq a => Eq1 (Either a)
 
 -- | The `Ord` instance allows `Either` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
@@ -175,7 +172,7 @@ instance eq1Either :: Eq a => Eq1 (Either a) where eq1 = eq
 -- | Any `Left` value is considered to be less than a `Right` value.
 derive instance ordEither :: (Ord a, Ord b) => Ord (Either a b)
 
-instance ord1Either :: Ord a => Ord1 (Either a) where compare1 = compare
+derive instance ord1Either :: Ord a => Ord1 (Either a)
 
 instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
   top = Right top
@@ -208,12 +205,6 @@ instance bitraversableEither :: Bitraversable Either where
   bitraverse _ g (Right b) = Right <$> g b
   bisequence (Left a) = Left <$> a
   bisequence (Right b) = Right <$> b
-
-instance semiringEither :: (Semiring b) => Semiring (Either a b) where
-  one = Right one
-  mul x y = mul <$> x <*> y
-  zero = Right zero
-  add x y = add <$> x <*> y
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
