@@ -1,8 +1,7 @@
 {
   "name": "purescript-either",
   "homepage": "https://github.com/purescript/purescript-either",
-  "description": "Values with two possibilities",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/purescript/purescript-either.git"
@@ -17,7 +16,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-foldable-traversable": "^3.0.0",
-    "purescript-prelude": "^3.0.0"
+    "purescript-bifunctors": "^4.0.0",
+    "purescript-control": "^4.0.0",
+    "purescript-foldable-traversable": "^4.0.0",
+    "purescript-invariant": "^4.0.0",
+    "purescript-maybe": "^4.0.0",
+    "purescript-prelude": "^4.0.0"
   }
 }
