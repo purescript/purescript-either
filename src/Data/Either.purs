@@ -9,10 +9,13 @@ import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable)
+import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.FunctorWithIndex (class FunctorWithIndex)
 import Data.Maybe (Maybe(..), maybe, maybe')
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
+import Data.TraversableWithIndex (class TraversableWithIndex)
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
@@ -33,6 +36,9 @@ data Either a b = Left a | Right b
 -- | f <$> Left y == Left y
 -- | ```
 derive instance functorEither :: Functor (Either a)
+
+instance functorWithIndexEither :: FunctorWithIndex Unit (Either a) where
+  mapWithIndex f = map $ f unit
 
 instance invariantEither :: Invariant (Either a) where
   imap = imapF
@@ -186,6 +192,14 @@ instance foldableEither :: Foldable (Either a) where
   foldMap f (Left _)  = mempty
   foldMap f (Right x) = f x
 
+instance foldableWithIndexEither :: FoldableWithIndex Unit (Either a) where
+  foldrWithIndex _ z (Left _)  = z
+  foldrWithIndex f z (Right x) = f unit x z
+  foldlWithIndex _ z (Left _)  = z
+  foldlWithIndex f z (Right x) = f unit z x
+  foldMapWithIndex f (Left _)  = mempty
+  foldMapWithIndex f (Right x) = f unit x
+
 instance bifoldableEither :: Bifoldable Either where
   bifoldr f _ z (Left a) = f a z
   bifoldr _ g z (Right b) = g b z
@@ -199,6 +213,10 @@ instance traversableEither :: Traversable (Either a) where
   traverse f (Right x) = Right <$> f x
   sequence (Left x) = pure (Left x)
   sequence (Right x)  = Right <$> x
+
+instance traversableWithIndexEither :: TraversableWithIndex Unit (Either a) where
+  traverseWithIndex _ (Left x)  = pure (Left x)
+  traverseWithIndex f (Right x) = Right <$> f unit x
 
 instance bitraversableEither :: Bitraversable Either where
   bitraverse f _ (Left a) = Left <$> f a
