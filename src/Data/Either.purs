@@ -79,7 +79,7 @@ instance bifunctorEither :: Bifunctor Either where
 -- | f <$> Right x <*> Left y == Left y
 -- | f <$> Left x <*> Left y == Left x
 -- | ```
-instance applyEither :: Apply (Either e) where
+instance applyEitherInstance :: Apply (Either e) where
   apply (Left e) _ = Left e
   apply (Right f) r = f <$> r
 
@@ -290,3 +290,21 @@ note' f = maybe' (Left <<< f) Right
 -- | ```
 hush :: forall a b. Either a b -> Maybe b
 hush = either (const Nothing) Just
+
+-- | Combines two `Either`s while combining the errors of both. Behaves exactly
+-- | like the `apply` for validation.
+-- | ```purescript
+-- | applyEither (Left (NonEmptyList "ParseError")) (NonEmptyList "OtherParseError") =
+-- |   (Left (NonEmptyList "ParseError") (NonEmptyList "OtherParseError")))
+-- | ```
+-- | as opposed to the default `Apply` instance, which would behave as follows:
+-- | ```purescript
+-- | apply (Left (NonEmptyList "ParseError")) (NonEmptyList "OtherParseError") =
+-- |   (Left (NonEmptyList "ParseError")))
+-- | ```
+
+applyEither :: forall e a b. Semigroup e => Either e (a -> b) -> Either e a -> Either e b
+applyEither (Left e) (Right _) = Left e
+applyEither (Left e1) (Left e2) = Left (e1 <> e2)
+applyEither (Right _) (Left e) = Left e
+applyEither (Right fun) (Right a) = Right (fun a)
