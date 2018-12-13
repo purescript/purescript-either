@@ -261,6 +261,11 @@ fromLeft (Left a) = a
 fromRight :: forall a b. Partial => Either a b -> b
 fromRight (Right a) = a
 
+-- | A function that extracts the value from the `Left` or `Right` when both are
+-- | the same type.
+fromEither :: forall a. Either a a -> a
+fromEither = either identity identity
+
 -- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
 -- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
 -- |
