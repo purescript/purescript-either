@@ -251,15 +251,17 @@ isLeft = either (const true) (const false)
 isRight :: forall a b. Either a b -> Boolean
 isRight = either (const false) (const true)
 
--- | A partial function that extracts the value from the `Left` data constructor.
--- | Passing a `Right` to `fromLeft` will throw an error at runtime.
-fromLeft :: forall a b. Partial => Either a b -> a
-fromLeft (Left a) = a
+-- | A function that extracts the value from the `Left` data constructor.
+-- | Passing a `Right` to `fromLeft` will return the default value.
+fromLeft :: forall a b. a -> Either a b -> a
+fromLeft _ (Left a) = a
+fromLeft default _ = default
 
--- | A partial function that extracts the value from the `Right` data constructor.
--- | Passing a `Left` to `fromRight` will throw an error at runtime.
-fromRight :: forall a b. Partial => Either a b -> b
-fromRight (Right a) = a
+-- | A function that extracts the value from the `Right` data constructor.
+-- | Passing a `Left` to `fromRight` will return the default value.
+fromRight :: forall a b. b -> Either a b -> b
+fromRight _ (Right b) = b
+fromRight default _ = default
 
 -- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
 -- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
