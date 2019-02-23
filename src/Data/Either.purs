@@ -252,13 +252,15 @@ isRight :: forall a b. Either a b -> Boolean
 isRight = either (const false) (const true)
 
 -- | A function that extracts the value from the `Left` data constructor.
--- | Passing a `Right` to `fromLeft` will return the default value.
+-- | The first argument is a default value, which will be returned in the
+-- | case where a `Right` is passed to `fromLeft`.
 fromLeft :: forall a b. a -> Either a b -> a
 fromLeft _ (Left a) = a
 fromLeft default _ = default
 
 -- | A function that extracts the value from the `Right` data constructor.
--- | Passing a `Left` to `fromRight` will return the default value.
+-- | The first argument is a default value, which will be returned in the
+-- | case where a `Left` is passed to `fromRight`.
 fromRight :: forall a b. b -> Either a b -> b
 fromRight _ (Right b) = b
 fromRight default _ = default
