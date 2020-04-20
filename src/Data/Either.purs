@@ -57,7 +57,7 @@ instance bifunctorEither :: Bifunctor Either where
 -- | `Left` values are left untouched:
 -- |
 -- | ``` purescript
--- | Left f <*> Right x == Left x
+-- | Left f <*> Right x == Left f
 -- | Right f <*> Left y == Left y
 -- | ```
 -- |
