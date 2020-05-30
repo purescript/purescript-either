@@ -143,6 +143,24 @@ instance bindEither :: Bind (Either e) where
 -- | ``` purescript
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
+-- |
+-- | and is conceptually similar to writing...
+-- |
+-- | ```
+-- | var x = // ...
+-- | if x.isLeft {
+-- |   return x; // Left
+-- | } else {
+-- |   var x' = x.unwrapRight;
+-- |   var y = // ...
+-- |   if y.isLeft {
+-- |     return y; // Left
+-- |   } else {
+-- |     var y' = y.unwrapRight;
+-- |     return wrapIntoRight(f(x', y'));
+-- |   }
+-- | }
+-- | ```
 instance monadEither :: Monad (Either e)
 
 -- | The `Extend` instance allows sequencing of `Either` values and functions
