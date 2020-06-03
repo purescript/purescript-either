@@ -28,6 +28,13 @@ import Data.Either (Either(..), either)
 import Data.Void (Void, absurd)
 
 infixr 6 type Either as \/
+
+-- | Allows to match nested eithers. For example:
+-- |
+-- | ```purescript
+-- | f :: (Int \/ String \/ Boolean) -> String
+-- | f = show \/ identity \/ if _ then "yes" else "no"
+-- | ```
 infixr 6 either as \/
 
 type Either1 a = a \/ Void
