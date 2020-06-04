@@ -29,11 +29,20 @@ import Data.Void (Void, absurd)
 
 infixr 6 type Either as \/
 
--- | Allows to match nested eithers. For example:
+-- | The `\/` operator alias for the `either` function allows easy matching on nested Eithers. For example, consider the function
 -- |
 -- | ```purescript
 -- | f :: (Int \/ String \/ Boolean) -> String
--- | f = show \/ identity \/ if _ then "yes" else "no"
+-- | f (Left x) = show x
+-- | f (Right (Left y)) = y
+-- | f (Right (Right z)) = if z then "Yes" else "No"
+-- | ```
+-- |
+-- | The `\/` operator alias allows us to rewrite this function as
+-- |
+-- | ```purescript
+-- | f :: (Int \/ String \/ Boolean) -> String
+-- | f = show \/ identity \/ if _ then "Yes" else "No"
 -- | ```
 infixr 6 either as \/
 
