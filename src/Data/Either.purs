@@ -125,42 +125,46 @@ instance altEither :: Alt (Either e) where
 -- | Left x >>= f = Left x
 -- | Right x >>= f = f x
 -- | ```
-instance bindEither :: Bind (Either e) where
-  bind = either (\e _ -> Left e) (\a f -> f a)
-
--- | The `Monad` instance guarantees that there are both `Applicative` and
--- | `Bind` instances for `Either`. This also enables the `do` syntactic sugar:
 -- |
+-- | `Either`'s "do notation" can be understood to work like this:
 -- | ``` purescript
--- | do
+-- | x :: forall e a. Either e a
+-- | x = --
+-- |
+-- | y :: forall e b. Either e b
+-- | y = --
+-- |
+-- | foo :: forall e a. (a -> b -> c) -> Either e c
+-- | foo f = do
 -- |   x' <- x
 -- |   y' <- y
 -- |   pure (f x' y')
 -- | ```
 -- |
--- | Which is equivalent to:
+-- | ...which is equivalent to...
 -- |
 -- | ``` purescript
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
 -- |
--- | and is conceptually similar to writing...
+-- | ...and is the same as writing...
 -- |
 -- | ```
--- | var x = // ...
--- | if x.isLeft {
--- |   return x; // Left
--- | } else {
--- |   var x' = x.unwrapRight;
--- |   var y = // ...
--- |   if y.isLeft {
--- |     return y; // Left
--- |   } else {
--- |     var y' = y.unwrapRight;
--- |     return wrapIntoRight(f(x', y'));
--- |   }
--- | }
+-- | foo :: forall e a. (a -> b -> c) -> Either e c
+-- | foo f = case x of
+-- |   Left e ->
+-- |     Left e
+-- |   Right x -> case y of
+-- |     Left e ->
+-- |       Left e
+-- |     Right y ->
+-- |       Right (f x y)
 -- | ```
+instance bindEither :: Bind (Either e) where
+  bind = either (\e _ -> Left e) (\a f -> f a)
+
+-- | The `Monad` instance guarantees that there are both `Applicative` and
+-- | `Bind` instances for `Either`.
 instance monadEither :: Monad (Either e)
 
 -- | The `Extend` instance allows sequencing of `Either` values and functions
