@@ -16,16 +16,16 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-bifunctors": "^4.0.0",
-    "purescript-control": "^4.0.0",
-    "purescript-foldable-traversable": "^4.0.0",
-    "purescript-invariant": "^4.0.0",
-    "purescript-maybe": "^4.0.0",
-    "purescript-prelude": "^4.0.0"
+    "purescript-bifunctors": "master",
+    "purescript-control": "master",
+    "purescript-foldable-traversable": "master",
+    "purescript-invariant": "master",
+    "purescript-maybe": "master",
+    "purescript-prelude": "master"
   },
   "devDependencies": {
-    "purescript-assert": "^4.0.0",
-    "purescript-console": "^4.0.0",
-    "purescript-effect": "^2.0.0"
+    "purescript-assert": "master",
+    "purescript-console": "master",
+    "purescript-effect": "master"
   }
 }
