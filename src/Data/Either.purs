@@ -125,24 +125,46 @@ instance altEither :: Alt (Either e) where
 -- | Left x >>= f = Left x
 -- | Right x >>= f = f x
 -- | ```
-instance bindEither :: Bind (Either e) where
-  bind = either (\e _ -> Left e) (\a f -> f a)
-
--- | The `Monad` instance guarantees that there are both `Applicative` and
--- | `Bind` instances for `Either`. This also enables the `do` syntactic sugar:
 -- |
+-- | `Either`'s "do notation" can be understood to work like this:
 -- | ``` purescript
--- | do
+-- | x :: forall e a. Either e a
+-- | x = --
+-- |
+-- | y :: forall e b. Either e b
+-- | y = --
+-- |
+-- | foo :: forall e a. (a -> b -> c) -> Either e c
+-- | foo f = do
 -- |   x' <- x
 -- |   y' <- y
 -- |   pure (f x' y')
 -- | ```
 -- |
--- | Which is equivalent to:
+-- | ...which is equivalent to...
 -- |
 -- | ``` purescript
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
+-- |
+-- | ...and is the same as writing...
+-- |
+-- | ```
+-- | foo :: forall e a. (a -> b -> c) -> Either e c
+-- | foo f = case x of
+-- |   Left e ->
+-- |     Left e
+-- |   Right x -> case y of
+-- |     Left e ->
+-- |       Left e
+-- |     Right y ->
+-- |       Right (f x y)
+-- | ```
+instance bindEither :: Bind (Either e) where
+  bind = either (\e _ -> Left e) (\a f -> f a)
+
+-- | The `Monad` instance guarantees that there are both `Applicative` and
+-- | `Bind` instances for `Either`.
 instance monadEither :: Monad (Either e)
 
 -- | The `Extend` instance allows sequencing of `Either` values and functions
@@ -251,15 +273,19 @@ isLeft = either (const true) (const false)
 isRight :: forall a b. Either a b -> Boolean
 isRight = either (const false) (const true)
 
--- | A partial function that extracts the value from the `Left` data constructor.
--- | Passing a `Right` to `fromLeft` will throw an error at runtime.
-fromLeft :: forall a b. Partial => Either a b -> a
-fromLeft (Left a) = a
+-- | A function that extracts the value from the `Left` data constructor.
+-- | The first argument is a default value, which will be returned in the
+-- | case where a `Right` is passed to `fromLeft`.
+fromLeft :: forall a b. a -> Either a b -> a
+fromLeft _ (Left a) = a
+fromLeft default _ = default
 
--- | A partial function that extracts the value from the `Right` data constructor.
--- | Passing a `Left` to `fromRight` will throw an error at runtime.
-fromRight :: forall a b. Partial => Either a b -> b
-fromRight (Right a) = a
+-- | A function that extracts the value from the `Right` data constructor.
+-- | The first argument is a default value, which will be returned in the
+-- | case where a `Left` is passed to `fromRight`.
+fromRight :: forall a b. b -> Either a b -> b
+fromRight _ (Right b) = b
+fromRight default _ = default
 
 -- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
 -- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
