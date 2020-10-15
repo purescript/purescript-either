@@ -17,17 +17,34 @@
 -- | toEither3 (Blue  v) = in3 v
 -- | ```
 module Data.Either.Nested
-  ( type (\/)
+  ( type (\/), (\/)
   , in1, in2, in3, in4, in5, in6, in7, in8, in9, in10
   , at1, at2, at3, at4, at5, at6, at7, at8, at9, at10
   , Either1, Either2, Either3, Either4, Either5, Either6, Either7, Either8, Either9, Either10
   , either1, either2, either3, either4, either5, either6, either7, either8, either9, either10
   ) where
 
-import Data.Either (Either(..))
+import Data.Either (Either(..), either)
 import Data.Void (Void, absurd)
 
 infixr 6 type Either as \/
+
+-- | The `\/` operator alias for the `either` function allows easy matching on nested Eithers. For example, consider the function
+-- |
+-- | ```purescript
+-- | f :: (Int \/ String \/ Boolean) -> String
+-- | f (Left x) = show x
+-- | f (Right (Left y)) = y
+-- | f (Right (Right z)) = if z then "Yes" else "No"
+-- | ```
+-- |
+-- | The `\/` operator alias allows us to rewrite this function as
+-- |
+-- | ```purescript
+-- | f :: (Int \/ String \/ Boolean) -> String
+-- | f = show \/ identity \/ if _ then "Yes" else "No"
+-- | ```
+infixr 6 either as \/
 
 type Either1 a = a \/ Void
 type Either2 a b = a \/ b \/ Void
