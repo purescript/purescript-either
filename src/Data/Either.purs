@@ -12,6 +12,7 @@ import Data.Foldable (class Foldable)
 import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.FunctorWithIndex (class FunctorWithIndex)
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..), maybe, maybe')
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
@@ -39,6 +40,8 @@ derive instance functorEither :: Functor (Either a)
 
 instance functorWithIndexEither :: FunctorWithIndex Unit (Either a) where
   mapWithIndex f = map $ f unit
+
+derive instance genericEither :: Generic (Either a b) _
 
 instance invariantEither :: Invariant (Either a) where
   imap = imapF

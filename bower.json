@@ -19,6 +19,7 @@
     "purescript-bifunctors": "master",
     "purescript-control": "master",
     "purescript-foldable-traversable": "master",
+    "purescript-generics-rep": "master",
     "purescript-invariant": "master",
     "purescript-maybe": "master",
     "purescript-prelude": "master"
