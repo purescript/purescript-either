@@ -280,12 +280,30 @@ fromLeft :: forall a b. a -> Either a b -> a
 fromLeft _ (Left a) = a
 fromLeft default _ = default
 
+-- | Similar to `fromLeft` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `fromLeft`
+-- | has to evaluate the default value before returning the result,
+-- | whereas here the value is only computed when the `Either` is known
+-- | to be `Right`.
+fromLeft' :: forall a b. (Unit -> a) -> Either a b -> a
+fromLeft' _ (Left a) = a
+fromLeft' default _ = default unit
+
 -- | A function that extracts the value from the `Right` data constructor.
 -- | The first argument is a default value, which will be returned in the
 -- | case where a `Left` is passed to `fromRight`.
 fromRight :: forall a b. b -> Either a b -> b
 fromRight _ (Right b) = b
 fromRight default _ = default
+
+-- | Similar to `fromRight` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `fromRight`
+-- | has to evaluate the default value before returning the result,
+-- | whereas here the value is only computed when the `Either` is known
+-- | to be `Left`.
+fromRight' :: forall a b. (Unit -> b) -> Either a b -> b
+fromRight' _ (Right b) = b
+fromRight' default _ = default unit
 
 -- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
 -- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
