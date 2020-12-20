@@ -12,6 +12,7 @@ import Data.Foldable (class Foldable)
 import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.FunctorWithIndex (class FunctorWithIndex)
+import Data.Generics.Rep (class Generic)
 import Data.Maybe (Maybe(..), maybe, maybe')
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
@@ -248,6 +249,8 @@ instance bitraversableEither :: Bitraversable Either where
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
+
+derive instance genericEither :: Generic Either _
 
 -- | Takes two functions and an `Either` value, if the value is a `Left` the
 -- | inner value is applied to the first function, if the value is a `Right`
