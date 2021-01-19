@@ -5,7 +5,7 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
-- Updated dependencies for PureScript 0.14 (#55)
+- Added support for PureScript 0.14 and dropped support for all previous versions (#55)
 - Added default parameter to `fromLeft` and `fromRight` and removed `Partial` constraint (#48)
 
 New features:
@@ -16,7 +16,7 @@ Bugfixes:
 
 Other improvements:
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#58)
-- Added a CHANGELOG.md file and pull request template (#62 #63)
+- Added a CHANGELOG.md file and pull request template (#62, #63)
 - Corrected docs for `Apply` instance (#49)
 - Improved documentation of `Either`s "do notation" (#52)
 
