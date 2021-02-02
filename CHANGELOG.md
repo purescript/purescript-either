@@ -11,6 +11,7 @@ Breaking changes:
 New features:
 - Added `\/` alias for `either` (#51)
 - Added lazy versions of `fromRight` and `fromLeft` (#59)
+- This package no longer depends on the `purescript-bifunctors` and `purescript-foldable-traversable` packages. Relevant instances have been moved to those packages. (#64)
 
 Bugfixes:
 

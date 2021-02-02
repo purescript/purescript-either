@@ -16,9 +16,7 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-bifunctors": "master",
     "purescript-control": "master",
-    "purescript-foldable-traversable": "master",
     "purescript-invariant": "master",
     "purescript-maybe": "master",
     "purescript-prelude": "master"
