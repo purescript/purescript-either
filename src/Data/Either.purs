@@ -4,19 +4,11 @@ import Prelude
 
 import Control.Alt (class Alt, (<|>))
 import Control.Extend (class Extend)
-import Data.Bifoldable (class Bifoldable)
-import Data.Bifunctor (class Bifunctor)
-import Data.Bitraversable (class Bitraversable)
 import Data.Eq (class Eq1)
-import Data.Foldable (class Foldable)
-import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
-import Data.FunctorWithIndex (class FunctorWithIndex)
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..), maybe, maybe')
 import Data.Ord (class Ord1)
-import Data.Traversable (class Traversable)
-import Data.TraversableWithIndex (class TraversableWithIndex)
 
 -- | The `Either` type is used to represent a choice between two types of value.
 -- |
@@ -38,17 +30,10 @@ data Either a b = Left a | Right b
 -- | ```
 derive instance functorEither :: Functor (Either a)
 
-instance functorWithIndexEither :: FunctorWithIndex Unit (Either a) where
-  mapWithIndex f = map $ f unit
-
 derive instance genericEither :: Generic (Either a b) _
 
 instance invariantEither :: Invariant (Either a) where
   imap = imapF
-
-instance bifunctorEither :: Bifunctor Either where
-  bimap f _ (Left l) = Left (f l)
-  bimap _ g (Right r) = Right (g r)
 
 -- | The `Apply` instance allows functions contained within a `Right` to
 -- | transform a value contained within a `Right` using the `(<*>)` operator:
@@ -208,46 +193,6 @@ derive instance ord1Either :: Ord a => Ord1 (Either a)
 instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
   top = Right top
   bottom = Left bottom
-
-instance foldableEither :: Foldable (Either a) where
-  foldr _ z (Left _)  = z
-  foldr f z (Right x) = f x z
-  foldl _ z (Left _)  = z
-  foldl f z (Right x) = f z x
-  foldMap f (Left _)  = mempty
-  foldMap f (Right x) = f x
-
-instance foldableWithIndexEither :: FoldableWithIndex Unit (Either a) where
-  foldrWithIndex _ z (Left _)  = z
-  foldrWithIndex f z (Right x) = f unit x z
-  foldlWithIndex _ z (Left _)  = z
-  foldlWithIndex f z (Right x) = f unit z x
-  foldMapWithIndex f (Left _)  = mempty
-  foldMapWithIndex f (Right x) = f unit x
-
-instance bifoldableEither :: Bifoldable Either where
-  bifoldr f _ z (Left a) = f a z
-  bifoldr _ g z (Right b) = g b z
-  bifoldl f _ z (Left a) = f z a
-  bifoldl _ g z (Right b) = g z b
-  bifoldMap f _ (Left a) = f a
-  bifoldMap _ g (Right b) = g b
-
-instance traversableEither :: Traversable (Either a) where
-  traverse _ (Left x)  = pure (Left x)
-  traverse f (Right x) = Right <$> f x
-  sequence (Left x) = pure (Left x)
-  sequence (Right x)  = Right <$> x
-
-instance traversableWithIndexEither :: TraversableWithIndex Unit (Either a) where
-  traverseWithIndex _ (Left x)  = pure (Left x)
-  traverseWithIndex f (Right x) = Right <$> f unit x
-
-instance bitraversableEither :: Bitraversable Either where
-  bitraverse f _ (Left a) = Left <$> f a
-  bitraverse _ g (Right b) = Right <$> g b
-  bisequence (Left a) = Left <$> a
-  bisequence (Right b) = Right <$> b
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
