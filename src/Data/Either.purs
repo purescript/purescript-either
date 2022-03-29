@@ -140,13 +140,10 @@ instance altEither :: Alt (Either e) where
 -- | ```
 -- | foo :: forall e a. (a -> b -> c) -> Either e c
 -- | foo f = case x of
--- |   Left e ->
--- |     Left e
+-- |   Left e -> Left e
 -- |   Right x -> case y of
--- |     Left e ->
--- |       Left e
--- |     Right y ->
--- |       Right (f x y)
+-- |     Left e -> Left e
+-- |     Right y -> Right (f x y)
 -- | ```
 instance bindEither :: Bind (Either e) where
   bind = either (\e _ -> Left e) (\a f -> f a)
