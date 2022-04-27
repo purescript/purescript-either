@@ -16,14 +16,14 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-control": "master",
-    "purescript-invariant": "master",
-    "purescript-maybe": "master",
-    "purescript-prelude": "master"
+    "purescript-control": "^6.0.0",
+    "purescript-invariant": "^6.0.0",
+    "purescript-maybe": "^6.0.0",
+    "purescript-prelude": "^6.0.0"
   },
   "devDependencies": {
-    "purescript-assert": "master",
-    "purescript-console": "master",
-    "purescript-effect": "master"
+    "purescript-assert": "^6.0.0",
+    "purescript-console": "^6.0.0",
+    "purescript-effect": "^4.0.0"
   }
 }
