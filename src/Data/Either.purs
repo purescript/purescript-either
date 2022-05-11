@@ -273,7 +273,7 @@ note a = maybe (Left a) Right
 note' :: forall a b. (Unit -> a) -> Maybe b -> Either a b
 note' f = maybe' (Left <<< f) Right
 
--- | Turns an `Either` into a `Maybe`, by throwing eventual `Left` values away and converting
+-- | Turns an `Either` into a `Maybe`, by throwing potential `Left` values away and converting
 -- | them into `Nothing`. `Right` values get turned into `Just`s.
 -- |
 -- | ```purescript
@@ -282,3 +282,13 @@ note' f = maybe' (Left <<< f) Right
 -- | ```
 hush :: forall a b. Either a b -> Maybe b
 hush = either (const Nothing) Just
+
+-- | Turns an `Either` into a `Maybe`, by throwing potential `Right` values away and converting
+-- | them into `Nothing`. `Left` values get turned into `Just`s.
+-- |
+-- | ```purescript
+-- | blush (Left "ParseError") = Just "Parse Error"
+-- | blush (Right 42) = Nothing
+-- | ```
+blush :: forall a b. Either a b -> Maybe a
+blush = either Just (const Nothing)
