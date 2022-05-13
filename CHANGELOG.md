@@ -7,6 +7,7 @@ Notable changes to this project are documented in this file. The format is based
 Breaking changes:
 
 New features:
+- Add `blush` which is a left-biased `hush`, thus turns `Right`s into `Nothing`s but `Left`s into `Just`s (#69).
 
 Bugfixes:
 
@@ -148,6 +149,3 @@ Add `Alt` instance
 
 
 ## [v0.1.0](https://github.com/purescript/purescript-either/releases/tag/v0.1.0) - 2014-04-21
-
-
-
