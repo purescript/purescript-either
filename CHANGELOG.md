@@ -7,11 +7,15 @@ Notable changes to this project are documented in this file. The format is based
 Breaking changes:
 
 New features:
-- Add `blush` which is a left-biased `hush`, thus turns `Right`s into `Nothing`s but `Left`s into `Just`s (#69).
 
 Bugfixes:
 
 Other improvements:
+
+## [v6.1.0](https://github.com/purescript/purescript-either/releases/tag/v6.1.0) - 2022-05-16
+
+New features:
+- Add `blush` which is a left-biased `hush`, thus turns `Right`s into `Nothing`s but `Left`s into `Just`s (#69 by @i-am-the-slime).
 
 ## [v6.0.0](https://github.com/purescript/purescript-either/releases/tag/v6.0.0) - 2022-04-27
 
