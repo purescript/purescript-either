@@ -4,6 +4,8 @@ import Prelude
 
 import Control.Alt (class Alt, (<|>))
 import Control.Extend (class Extend)
+import Data.Debug (class Debug, debug)
+import Data.Debug.Type as D
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Generic.Rep (class Generic)
@@ -196,6 +198,11 @@ instance boundedEither :: (Bounded a, Bounded b) => Bounded (Either a b) where
 
 instance semigroupEither :: (Semigroup b) => Semigroup (Either a b) where
   append x y = append <$> x <*> y
+
+instance debugEither :: (Debug a, Debug b) => Debug (Either a b) where
+  debug = case _ of
+    Left x -> D.constructor "Left" [ debug x ]
+    Right x -> D.constructor "Right" [ debug x ]
 
 -- | Takes two functions and an `Either` value, if the value is a `Left` the
 -- | inner value is applied to the first function, if the value is a `Right`
