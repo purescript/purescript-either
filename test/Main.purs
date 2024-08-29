@@ -2,6 +2,7 @@ module Test.Main where
 
 import Prelude
 
+import Data.Either (Either(..), lefts, rights)
 import Data.Either.Inject (inj, prj)
 import Data.Either.Nested (Either3, in1, in2, in3)
 import Data.Maybe (Maybe(..))
@@ -63,4 +64,30 @@ main = do
   assertEqual
     { actual: prj (in3 100 :: MySum)
     , expected: Nothing :: Maybe Boolean
+    }
+  log "Test lefts"
+  assertEqual
+    { actual: lefts [Left 1, Right 2, Left 3, Right 4]
+    , expected: [1, 3]
+    }
+  assertEqual
+    { actual: lefts [Right 2, Right 4]
+    , expected: [] :: Array Int
+    }
+  assertEqual
+    { actual: lefts []
+    , expected: [] :: Array Int
+    }
+  log "Test rights"
+  assertEqual
+    { actual: rights [Left 1, Right 2, Left 3, Right 4]
+    , expected: [2, 4]
+    }
+  assertEqual
+    { actual: rights [Left 1, Left 3]
+    , expected: [] :: Array Int
+    }
+  assertEqual
+    { actual: rights []
+    , expected: [] :: Array Int
     }

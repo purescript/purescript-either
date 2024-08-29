@@ -2,6 +2,7 @@ module Data.Either where
 
 import Prelude
 
+import Control.Bind (bindFlipped)
 import Control.Alt (class Alt, (<|>))
 import Control.Extend (class Extend)
 import Data.Eq (class Eq1)
@@ -252,6 +253,38 @@ fromRight default _ = default
 fromRight' :: forall a b. (Unit -> b) -> Either a b -> b
 fromRight' _ (Right b) = b
 fromRight' default _ = default unit
+
+-- | Keep from a `Monad` (typically an `Array`) of `Either` all
+-- | the `Left` elements.
+-- |
+-- | For `Monad` with an order (such as `Array`),
+-- | the initial order of the `Left` elements is preserved.
+-- | 
+-- | A possible use case is to collect all errors of multiple `Either`.
+-- |
+-- | The type signature being more general than `Array`, it is possible to
+-- | use it with other types such as `List`.
+-- |
+-- | ```purescript
+-- | lefts [Left "Error 1", Right 42, Left "Error 2"] = ["Error 1", "Error 2"]
+-- | ```
+lefts :: forall a b m. Monad m => Monoid (m a) => m (Either a b) -> m a
+lefts = bindFlipped $ either pure (const mempty)
+
+-- | Keep from a `Monad` (typically an `Array`) of `Either` all
+-- | the `Right` elements.
+-- |
+-- | For `Monad` with an order (such as `Array`),
+-- | the initial order of the `Right` elements is preserved.
+-- | 
+-- | The type signature being more general than `Array`, it is possible to
+-- | use it with other types such as `List`.
+-- |
+-- | ```purescript
+-- | rights [Left "Error 1", Right 42, Left "Error 2"] = [42]
+-- | ```
+rights :: forall a b m. Monad m => Monoid (m b) => m (Either a b) -> m b
+rights = bindFlipped $ either (const mempty) pure
 
 -- | Takes a default and a `Maybe` value, if the value is a `Just`, turn it into
 -- | a `Right`, if the value is a `Nothing` use the provided default as a `Left`
