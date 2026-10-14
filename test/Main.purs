@@ -27,13 +27,11 @@ main = do
     , expected: in3 100
     }
   log "Test injection with the injectReflexive instance"
+  let x = inj 100 :: MySum
   assertEqual
-    let
-      x = inj 100 :: MySum
-    in
-      { actual: inj x :: MySum
-      , expected: x
-      }
+    { actual: inj x :: MySum
+    , expected: x
+    }
   log "Test that injection picks the left-most option"
   assertEqual
     { actual: inj 100 :: Either3 Int Int Int
