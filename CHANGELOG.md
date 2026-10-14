@@ -12,6 +12,8 @@ Bugfixes:
 
 Other improvements:
 
+- Migrate from Bower/Pulp to Spago and update CI and formatting tools.
+
 ## [v6.1.0](https://github.com/purescript/purescript-either/releases/tag/v6.1.0) - 2022-05-16
 
 New features:
