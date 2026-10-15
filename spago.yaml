@@ -1,5 +1,6 @@
 package:
   name: either
+  description: Values with two alternatives, commonly used for errors and successes
   build:
     strict: true
     pedanticPackages: true
