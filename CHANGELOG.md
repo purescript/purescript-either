@@ -2,7 +2,7 @@
 
 Notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased](https://github.com/purescript/purescript-either/compare/v6.1.1...HEAD)
 
 Breaking changes:
 
@@ -12,14 +12,28 @@ Bugfixes:
 
 Other improvements:
 
+## [v6.1.1](https://github.com/purescript/purescript-either/releases/tag/v6.1.1) - 2026-10-17
+
+Breaking changes:
+
+New features:
+
+Bugfixes:
+
+Other improvements:
+
+- Migrate from Bower/Pulp to Spago and update CI and formatting tools (#72 by @thomashoneyman)
+
 ## [v6.1.0](https://github.com/purescript/purescript-either/releases/tag/v6.1.0) - 2022-05-16
 
 New features:
+
 - Add `blush` which is a left-biased `hush`, thus turns `Right`s into `Nothing`s but `Left`s into `Just`s (#69 by @i-am-the-slime).
 
 ## [v6.0.0](https://github.com/purescript/purescript-either/releases/tag/v6.0.0) - 2022-04-27
 
 Breaking changes:
+
 - Update project and deps to PureScript v0.15.0 (#66 by @JordanMartinez)
 
 New features:
@@ -31,10 +45,12 @@ Other improvements:
 ## [v5.0.0](https://github.com/purescript/purescript-either/releases/tag/v5.0.0) - 2021-02-26
 
 Breaking changes:
+
 - Added support for PureScript 0.14 and dropped support for all previous versions (#55)
 - Added default parameter to `fromLeft` and `fromRight` and removed `Partial` constraint (#48)
 
 New features:
+
 - Added `\/` alias for `either` (#51)
 - Added lazy versions of `fromRight` and `fromLeft` (#59)
 - This package no longer depends on the `purescript-bifunctors` and `purescript-foldable-traversable` packages. Relevant instances have been moved to those packages. (#64)
@@ -42,6 +58,7 @@ New features:
 Bugfixes:
 
 Other improvements:
+
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#58)
 - Added a CHANGELOG.md file and pull request template (#62, #63)
 - Corrected docs for `Apply` instance (#49)
@@ -138,8 +155,6 @@ Update docs
 
 ## [v0.1.4](https://github.com/purescript/purescript-either/releases/tag/v0.1.4) - 2014-11-05
 
-
-
 ## [v0.1.3](https://github.com/purescript/purescript-either/releases/tag/v0.1.3) - 2014-08-26
 
 Add `Alt` instance
@@ -149,7 +164,5 @@ Add `Alt` instance
 - Fixed `show` output (paf31)
 
 ## [v0.1.1](https://github.com/purescript/purescript-either/releases/tag/v0.1.1) - 2014-04-25
-
-
 
 ## [v0.1.0](https://github.com/purescript/purescript-either/releases/tag/v0.1.0) - 2014-04-21

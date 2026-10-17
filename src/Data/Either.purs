@@ -104,7 +104,7 @@ instance applicativeEither :: Applicative (Either e) where
 -- | ```
 instance altEither :: Alt (Either e) where
   alt (Left _) r = r
-  alt l        _ = l
+  alt l _ = l
 
 -- | The `Bind` instance allows sequencing of `Either` values and functions that
 -- | return an `Either` by using the `>>=` operator:
@@ -164,8 +164,8 @@ instance monadEither :: Monad (Either e)
 -- | f <<= Right x = Right (f (Right x))
 -- | ```
 instance extendEither :: Extend (Either e) where
-  extend _ (Left y)  = Left y
-  extend f x         = Right (f x)
+  extend _ (Left y) = Left y
+  extend f x = Right (f x)
 
 -- | The `Show` instance allows `Either` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for both type the `Either` can
